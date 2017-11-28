@@ -50,7 +50,7 @@ class Network(object):
                 x = j[0]
                 f.write(str(x))
                 f.write('\n')
-
+ 
 
         os.chdir('./..')
         os.mkdir('weights')
