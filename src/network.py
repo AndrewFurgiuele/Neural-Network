@@ -23,7 +23,6 @@ import shutil
 class Network(object):
 
     def save(self, path):
-        
         if os.path.exists(path):
             shutil.rmtree(path)        
             print("Overwriting previous saved net")      
@@ -36,7 +35,7 @@ class Network(object):
         #fB = open('biases.csv', 'w')         
         
         length = self.num_layers
-        print(length)
+        #print(length)
 
         os.mkdir('biases')
         os.chdir('biases')
@@ -50,16 +49,77 @@ class Network(object):
                 x = j[0]
                 f.write(str(x))
                 f.write('\n')
- 
 
         os.chdir('./..')
         os.mkdir('weights')
+        os.chdir('weights')
         
-        
+        for i in range((length-1)):
+            dirName = 'weights_layer_'+ str(i)
+            os.mkdir(dirName)
+            os.chdir(dirName)            
+            layer= self.weights[i]
+            c = 0
+            for j in layer:
+                fname = dirName+'_'+str(c)+ '.txt'
+                f = open(fname, 'w')
+                for k in j:
+                    f.write(str(k)+'\n')
+                                
+                c+=1
+
+            os.chdir('./..')
+        '''
+        print(len(self.weights))
+        for i in self.weights:
+            for j in i:
+                print(len(j))
+            print('break')
+                #for k in j:
+                    #print(k)
+                    #print(type(k))
+        '''
+        #get back to original directory
+        os.chdir('./../..')
+
 
 
     def load(self, path):
-        pass
+        os.chdir(path)
+        length = self.num_layers
+
+        #get the biases
+        os.chdir('biases')
+
+        b = []
+        for i in range(length-1):
+            fname = 'biases_layer_' + str(i+1)+ '.txt'
+            f = open(fname,'r')
+            l = []
+            
+            lines = f.readlines()
+            x =[]
+            for j in lines:
+                x =(float(j.strip()))                                
+                ar = np.ndarray(shape=(1,),dtype = np.float32)
+                ar[0] = x
+                l.append(ar)
+                        
+            b.append(np.array(l))
+        biases = np.array(b)
+        b1 = self.biases
+        b2 = biases
+        self.biases = biases
+     
+    
+
+
+        os.chdir('./../weights')
+        
+
+        
+        #get back to original directory
+        os.chdir('./..')
         
     
     

@@ -3,7 +3,7 @@ import network
 
 
 #net settings
-epochs = 1
+epochs = 5
 batchSize = 10
 lRate = 3.0
 
@@ -18,8 +18,13 @@ train_data, val_data, test_data = mnist_loader.load_data_wrapper()
 
 
 net = network.Network(netLayers)
+net2 = network.Network(netLayers)
 #net.SGD(train_data, epochs, batchSize, lRate, test_data = test_data )
-net.save('./savedNet')
+net.save('savedNet')
+net2.load('savedNet')
+
+#net.SGD(train_data, epochs, batchSize, lRate, test_data = test_data )
+#net2.SGD(train_data, epochs, batchSize, lRate, test_data = test_data )
 
 
 '''
