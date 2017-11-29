@@ -31,11 +31,8 @@ class Network(object):
         os.mkdir(path)
         os.chdir(path)
             
-        #fW = open('weights.csv', 'w')
-        #fB = open('biases.csv', 'w')         
-        
         length = self.num_layers
-        #print(length)
+
 
         os.mkdir('biases')
         os.chdir('biases')
@@ -69,16 +66,7 @@ class Network(object):
                 c+=1
 
             os.chdir('./..')
-        '''
-        print(len(self.weights))
-        for i in self.weights:
-            for j in i:
-                print(len(j))
-            print('break')
-                #for k in j:
-                    #print(k)
-                    #print(type(k))
-        '''
+      
         #get back to original directory
         os.chdir('./../..')
 
@@ -98,7 +86,7 @@ class Network(object):
             l = []
             
             lines = f.readlines()
-            x =[]
+            
             for j in lines:
                 x =(float(j.strip()))                                
                 ar = np.ndarray(shape=(1,),dtype = np.float32)
@@ -115,12 +103,38 @@ class Network(object):
 
 
         os.chdir('./../weights')
-        
+     
 
         
+       
+        weights = []
+        for i in range((length -1)):
+            dirName = 'weights_layer_' + str(i)
+
+            os.chdir(dirName)
+            
+            
+            layer = []
+            size = self.sizes[i+1]
+            
+            for j in range(size):
+                l = []
+                fname = dirName+'_'+str(j)+ '.txt'
+                f = open(fname, 'r')
+                lines = f.readlines()
+                for k in lines:
+                    x =(float(k.strip()))                                
+                    l.append(x)
+                layer.append(np.array(l))    
+            weights.append(np.array(layer))
+
+            os.chdir('./..')                       
+            print(os.getcwd())
+
+
         #get back to original directory
         os.chdir('./..')
-        
+        print('\n\n\n')
     
     
 

@@ -23,33 +23,6 @@ net2 = network.Network(netLayers)
 net.save('savedNet')
 net2.load('savedNet')
 
-#net.SGD(train_data, epochs, batchSize, lRate, test_data = test_data )
-#net2.SGD(train_data, epochs, batchSize, lRate, test_data = test_data )
+net.SGD(train_data, epochs, batchSize, lRate, test_data = test_data )
+net2.SGD(train_data, epochs, batchSize, lRate, test_data = test_data )
 
-
-'''
-print(type(net.weights))
-
-print(len(net.weights))
-for a in net.weights:
-    print(type(a))
-    print(len(a))
-    for b in a:
-        print(len(b))
-
-    print('break') 
-'''
-
-
-'''
-for a in net.biases:
-    print(type(a))
-    print(len(a))
-    for b in a:
-        #print(type(b))
-        #print(len(b))        
-        for c in b:
-            print(c)    
-        print('break1')
-
-    print('break2')'''
